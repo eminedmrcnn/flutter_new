@@ -58,7 +58,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title ),
-        centerTitle: true,
         actions: [
           //! Builder eklemezsek Scaffold.of() hata verecektir!
           Builder(
@@ -87,40 +86,64 @@ class _HomePageState extends State<HomePage> {
             ),
           )
         ],
+     
       ),
-      body:
-       Center(
+      
+      body: Center(
           child: ListView.builder(
               itemCount: articles.length,
               itemBuilder: (context, index) {
-                return Card(
-                  child: Column(
-                    children: [
-                      Image.network(articles[index]?.urlToImage??"unknown"),
-                      ListTile(
-                        leading: Icon(Icons.arrow_drop_down_circle),
-
-                        title:  Text(articles[index]?.title??"unknown"),
-                        subtitle: Text(articles[index]?.author??"unknown"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(articles[index]?.description??"unknown"),
-                      ),
-                      ButtonBar(
-                        alignment: MainAxisAlignment.start,
-                        children: [
-                          FlatButton(
-                              onPressed: () async {
-                                await launch(articles[index]?.url??"unknown");
-                              },
-                              child: Text('Habere Git')),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
+                return index ==0 ? _searchBar() :  _listItem(index-1);
               })),
+    );
+  }
+  _searchBar(){
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        decoration: InputDecoration(
+          hintText: "Search.."
+        ),
+        onChanged: (text){
+          text = text.toLowerCase();
+          setState(() {
+            articles = articles.where((articles) {
+              var articlesTitle = articles.title.toLowerCase();
+              return articlesTitle.contains(text);
+            }).toList();
+          });
+        },
+      ),
+    );
+  }
+
+  _listItem(index) {
+    return Card(
+      child: Column(
+        children: [
+          Image.network(articles[index]?.urlToImage??"unknown"),
+          ListTile(
+            leading: Icon(Icons.arrow_drop_down_circle),
+
+            title:  Text(articles[index]?.title??"unknown"),
+            subtitle: Text(articles[index]?.author??"unknown"),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(articles[index]?.description??"unknown"),
+          ),
+          ButtonBar(
+            alignment: MainAxisAlignment.start,
+            children: [
+              FlatButton(
+                  onPressed: () async {
+                    await launch(articles[index]?.url??"unknown");
+                  },
+                  child: Text('Habere Git')),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

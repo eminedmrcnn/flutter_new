@@ -18,8 +18,6 @@ class NewsService {
 
     final response = await http.get(url);
 
-
-
     if (response.body.isNotEmpty)  {
       final responseJson = json.decode(response.body);
       News news = News.fromJson(responseJson);
