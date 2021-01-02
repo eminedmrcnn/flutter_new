@@ -43,7 +43,7 @@ class AuthTypeSelector extends StatelessWidget {
               onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) =>
-                  FirebaseAuth.instance.currentUser == null ? SignInPage() : HomePage(),
+                  FirebaseAuth.instance.currentUser == null ? SignInPage() : HomePage(title: "Haberler",),
                 ),
               ),
             ),

@@ -41,7 +41,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
  FirebaseAuth _auth = FirebaseAuth.instance;
-  /*List<Articles> articles = [];
+  List<Articles> articles = [];
 
   @override
   void initState() {
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
       });
     });
     super.initState();
-  } */
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,9 +88,8 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: Center()
-
-      /* Center(
+      body:
+       Center(
           child: ListView.builder(
               itemCount: articles.length,
               itemBuilder: (context, index) {
@@ -121,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 );
-              })), */
+              })),
     );
   }
 }
